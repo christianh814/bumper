@@ -7,6 +7,7 @@ $pw = ""; //password
 $pw2 = ""; //password2
 $date = ""; //signup date
 $error_arry = array(); //an array of errors
+$info_arry = array(); //an array of errors
 //
 if (isset($_POST['register_button'])) {
 	$fname = strip_tags($_POST['reg_fname']);
@@ -83,15 +84,8 @@ if (isset($_POST['register_button'])) {
 		$query .= "VALUES ('{$fname}', '{$lname}', '{$username}', '{$em}', '{$password}', '{$date}', '{$profile_pic}', '0', '0', 'no', ',') ";
 		$send_query = mysqli_query($con, $query) or trigger_error("Query Failed! SQL: $query - Error: ".mysqli_error($con), E_USER_ERROR);
 		if ($send_query) {
-			echo "<h4>You're all set to login!</h4>";
+			array_push($info_arry, "<h4>You're all set to login!</h4>");
 		}
-	} else {
-		echo "<h4>You have the following errors</h4>";
-		echo "<ul>";
-		foreach($error_arry as $key => $value) {
-			echo "<li>{$value}</li>";
-		}   
-		echo "</ul>";
 	}
 }
 ?>

@@ -44,7 +44,7 @@ CREATE TABLE `users` (
   `user_closed` varchar(3) NOT NULL,
   `friend_arrary` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +53,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (5,'Peter','Cottontail','peter_cottontail','peter.bumper@mailinator.com','$2y$12$96GhUhqztwnX4xr2o1LUxOkUjbl9DcuLLL0hog0PtKJNYf6yuYiEy','2017-09-09','assets/images/profile_pics/defaults/head_deep_blue.png',0,0,'no',',');
+INSERT INTO `users` VALUES (5,'Peter','Cottontail','peter_cottontail','peter.bumper@mailinator.com','$2y$12$96GhUhqztwnX4xr2o1LUxOkUjbl9DcuLLL0hog0PtKJNYf6yuYiEy','2017-09-09','assets/images/profile_pics/defaults/head_deep_blue.png',0,0,'no',','),(6,'Mark','Villa','mark_villa','mark.bumper@mailinator.com','$2y$12$iJkmJxvRWcGhAebyvbZyY.xYbGovjdpiNw1JtzyUBLpC71NrX69I2','2017-09-10','assets/images/profile_pics/defaults/head_deep_blue.png',0,0,'no',',');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1321,4 +1321,4 @@ CREATE TABLE IF NOT EXISTS `slow_log` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-09 22:04:54
+-- Dump completed on 2017-09-10 11:48:20

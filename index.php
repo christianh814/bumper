@@ -1,9 +1,3 @@
-<?php require_once("config/config.php");?>
-<html>
-	<head>
-		<title>Welcome to Bumper</title>
-	</head>
-	<body>
-		<h1>Register <a href="register.php">Here</a></h1>
-	</body>
-</html>
+<?php require_once("includes/header.php");?>
+		<h1>Welcome to Bumper!</a></h1>
+<?php require_once("includes/footer.php");?>

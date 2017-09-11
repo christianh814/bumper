@@ -27,7 +27,7 @@ if (isset($_SESSION['username'])) {
 			<a href="index.php">Bumper</a>
 		</div>
 		<nav>
-			<a href="#"><?php echo $user['first_name'] ?></a>
+			<a href="<?php echo $user_logged_in ?>"><?php echo $user['first_name'] ?></a>
 			<a href="index.php"><i class="fa fa-home fa-lg"></i></a>
 			<a href="#"><i class="fa fa-envelope fa-lg"></i></a>
 			<a href="#"><i class="fa fa-bell-o fa-lg"></i></a>
@@ -35,3 +35,4 @@ if (isset($_SESSION['username'])) {
 			<a href="#"><i class="fa fa-cog fa-lg"></i></a>
 		</nav>
 	</div>
+<div class="wrapper">

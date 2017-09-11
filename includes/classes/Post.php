@@ -14,13 +14,14 @@ class Post {
 		$check_empty = preg_replace('/\s+/', '', $body);
 
 		if ($check_empty !== "") {
-			$date_added = date("Y-m-d H:i:S");
-			$added_by = $this->user_obj->getUsername;
+			$date_added = date("Y-m-d H:i:s");
+			$added_by = $this->user_obj->getUsername();
 			if ($user_to == $added_by) {
 				$user_to = "none";
 			}
-			$query = mysqli_query($this->con, "INSERT INTO posts VALUES('', '{$body}', '{$added_by}', '{$user_to}', '{$date_added}', 'no', 'no', '0' ) ");
-			mysqli_error($this->con);
+			$add_post_query = "INSERT INTO posts (body, added_by, user_to, date_added, user_closed, deleted, likes) ";
+			$add_post_query .= "VALUES('{$body}', '{$added_by}', '{$user_to}', '{$date_added}', 'no', 'no', '0' ) ";
+			$query = mysqli_query($this->con, $add_post_query);
 			$returned_id = mysqli_insert_id($this->con);
 			
 			// Insert Notifaction

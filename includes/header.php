@@ -1,5 +1,7 @@
 <?php
 require_once("config/config.php");
+require_once("includes/classes/User.php");
+require_once("includes/classes/Post.php");
 //
 if (isset($_SESSION['username'])) {
 	$user_logged_in = $_SESSION['username'];
@@ -20,6 +22,9 @@ if (isset($_SESSION['username'])) {
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"></link>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
+
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"></link>
+	<link rel="icon" href="favicon.ico" type="image/x-icon"></link>
 	</head>
 <body>
 	<div class="top_bar">

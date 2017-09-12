@@ -20,7 +20,56 @@
 		<input type="submit" name="post" id="post_button" value="Post"></input>
 		<hr>
 	</form>
+	<?php 
+		// $post = new Post($con, $user_logged_in);
+		// $post->loadPostsFriends();
+	?>
+	<div class="post_area">
+	<img id="loading" src="assets/images/icons/loading.gif"></img>
+	</div>
 </div>
+	<script>
+		var user_logged_in = '<?php echo $user_logged_in ?>';
+		$(document).ready(function() {
+			$('#loading').show();
+			$.ajax({
+				url: "includes/handlers/ajax_load_posts.php",
+				type: "POST",
+				data: "page=1&user_logged_in=" + user_logged_in,
+				cache: false,
+
+				success: function(data) {
+					$('#loading').hide();
+					$('.post_area').html(data);
+				}
+			});
+			$(window).scroll(function () {
+				var height = $('.post_area').height();
+				var scroll_top = $(this).scrollTop();
+				var page = $('.post_area').find('.nextPage').val();
+				var noMorePosts = $('.post_area').find('.noMorePosts').val();
+
+				if ((document.body.scrollHeight = document.body.scrollTop + window.innerHeight) && noMorePosts = 'false') {
+					$('#loading').show();
+					var ajaxReq = $.ajax({
+						url: "includes/handlers/ajax_load_posts.php",
+						type: "POST",
+						data: "page=" + page + "&user_logged_in=" + user_logged_in,
+						cache: false,
+
+						success: function(response) {
+							$('.post_area').find('.nextPage').remove();
+							$('.post_area').find('.noMorePosts').remove();
+							$('#loading').hide();
+							$('.post_area').append(response);
+						}
+					});
+					
+				} //end if
+				return false;
+			});
+		});
+	</script>
 		<!--./ site Content -->
 </div> <!-- end div wrapper in header -->
 <?php require_once("includes/footer.php");?>

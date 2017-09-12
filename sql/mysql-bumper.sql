@@ -24,6 +24,35 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `bumper` /*!40100 DEFAULT CHARACTER SET
 USE `bumper`;
 
 --
+-- Table structure for table `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_body` text NOT NULL,
+  `posted_by` varchar(100) NOT NULL,
+  `posted_to` varchar(100) NOT NULL,
+  `date_added` datetime NOT NULL,
+  `removed` varchar(3) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comments`
+--
+
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+INSERT INTO `comments` VALUES (1,'I do too!','mark_villa','christian_hernandez','2017-09-12 12:51:42','no',19),(2,'The kind chickens lay','mark_villa','peter_cottontail','2017-09-12 12:52:33','no',12),(3,'...Like a little TOO much','mark_villa','christian_hernandez','2017-09-12 13:22:53','no',19);
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `likes`
 --
 
@@ -48,34 +77,6 @@ LOCK TABLES `likes` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `post_comments`
---
-
-DROP TABLE IF EXISTS `post_comments`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `post_comments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_body` text NOT NULL,
-  `posted_by` varchar(100) NOT NULL,
-  `posted_to` varchar(100) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `removed` varchar(3) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `post_comments`
---
-
-LOCK TABLES `post_comments` WRITE;
-/*!40000 ALTER TABLE `post_comments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `post_comments` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `posts`
 --
 
@@ -92,7 +93,7 @@ CREATE TABLE `posts` (
   `deleted` varchar(3) NOT NULL,
   `likes` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +102,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,'i solemnly swear this is my first post','peter_cottontail','none','2017-09-11 07:30:24','no','no',0),(2,'This is my second post','peter_cottontail','none','2017-09-11 16:46:57','no','no',0),(3,'This is Mark\'s first post','mark_villa','none','2017-09-11 16:48:01','no','no',0);
+INSERT INTO `posts` VALUES (1,'i solemnly swear this is my first post','peter_cottontail','none','2017-09-11 07:30:24','no','no',0),(2,'This is my second post','peter_cottontail','none','2017-09-11 16:46:57','no','no',0),(3,'This is Mark\'s first post','mark_villa','none','2017-09-11 16:48:01','no','no',0),(4,'Posting on here is fun!','peter_cottontail','none','2017-09-12 07:04:39','no','no',0),(5,'I like it here','mark_villa','none','2017-09-12 07:05:29','no','no',0),(6,'The quick brown fox jumps over the lazy dog','peter_cottontail','none','2017-09-12 07:05:48','no','no',0),(7,'Where the white women at?','mark_villa','none','2017-09-12 07:06:01','no','no',0),(8,'I\'m just chilling here','peter_cottontail','none','2017-09-12 07:06:12','no','no',0),(9,'I can\'t wait until I can post some pictures','mark_villa','none','2017-09-12 07:07:44','no','no',0),(10,'...man when mark gets a hold of pictures features...','peter_cottontail','none','2017-09-12 07:08:07','no','no',0),(11,'Coffee is so good! I can have it all day if I allow myself to.','mark_villa','none','2017-09-12 07:08:29','no','no',0),(12,'What are the best kinds of eggs to buy?','peter_cottontail','none','2017-09-12 07:08:39','no','no',0),(13,'What if we don\'t really exist?','mark_villa','none','2017-09-12 07:08:55','no','no',0),(14,'Candles make a great Christmas gift!','peter_cottontail','none','2017-09-12 07:09:31','no','no',0),(15,'I just took the NASTIEST dump right now','mark_villa','none','2017-09-12 07:09:45','no','no',0),(16,'God this site needs more people','peter_cottontail','none','2017-09-12 07:09:58','no','no',0),(17,'I can\'t wait until this works','peter_cottontail','none','2017-09-12 07:12:36','no','no',0),(18,'I wonder if Lizeth will like this?','mark_villa','none','2017-09-12 07:13:46','no','no',0),(19,'I like turtles','christian_hernandez','none','2017-09-12 11:37:24','no','no',0);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +127,7 @@ CREATE TABLE `users` (
   `user_closed` varchar(3) NOT NULL,
   `friend_arrary` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,7 +136,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (5,'Peter','Cottontail','peter_cottontail','peter.bumper@mailinator.com','$2y$12$96GhUhqztwnX4xr2o1LUxOkUjbl9DcuLLL0hog0PtKJNYf6yuYiEy','2017-09-09','assets/images/profile_pics/defaults/head_deep_blue.png',2,0,'no',','),(6,'Mark','Villa','mark_villa','mark.bumper@mailinator.com','$2y$12$iJkmJxvRWcGhAebyvbZyY.xYbGovjdpiNw1JtzyUBLpC71NrX69I2','2017-09-10','assets/images/profile_pics/defaults/head_deep_blue.png',1,0,'no',',');
+INSERT INTO `users` VALUES (5,'Peter','Cottontail','peter_cottontail','peter.bumper@mailinator.com','$2y$12$96GhUhqztwnX4xr2o1LUxOkUjbl9DcuLLL0hog0PtKJNYf6yuYiEy','2017-09-09','assets/images/profile_pics/defaults/head_deep_blue.png',10,0,'no',',mark_villa,'),(6,'Mark','Villa','mark_villa','mark.bumper@mailinator.com','$2y$12$iJkmJxvRWcGhAebyvbZyY.xYbGovjdpiNw1JtzyUBLpC71NrX69I2','2017-09-10','assets/images/profile_pics/defaults/head_deep_blue.png',8,0,'no',',peter_cottontail,christian_hernandez,'),(7,'Christian','Hernandez','christian_hernandez','chx.bumper@mailinator.com','$2y$12$nQHbwVTbm7cvkgKiUouL9O21nrdKVbAcx6JdQATo4QlUvK3//0anS','2017-09-12','assets/images/profile_pics/defaults/head_deep_blue.png',1,0,'no',',mark_villa,');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -803,7 +804,7 @@ CREATE TABLE `innodb_index_stats` (
 
 LOCK TABLES `innodb_index_stats` WRITE;
 /*!40000 ALTER TABLE `innodb_index_stats` DISABLE KEYS */;
-INSERT INTO `innodb_index_stats` VALUES ('bumper','likes','PRIMARY','2017-09-11 01:04:11','n_diff_pfx01',0,1,'id'),('bumper','likes','PRIMARY','2017-09-11 01:04:11','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('bumper','likes','PRIMARY','2017-09-11 01:04:11','size',1,NULL,'Number of pages in the index'),('bumper','post_comments','PRIMARY','2017-09-11 01:02:51','n_diff_pfx01',0,1,'id'),('bumper','post_comments','PRIMARY','2017-09-11 01:02:51','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('bumper','post_comments','PRIMARY','2017-09-11 01:02:51','size',1,NULL,'Number of pages in the index'),('bumper','posts','PRIMARY','2017-09-11 23:48:01','n_diff_pfx01',3,1,'id'),('bumper','posts','PRIMARY','2017-09-11 23:48:01','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('bumper','posts','PRIMARY','2017-09-11 23:48:01','size',1,NULL,'Number of pages in the index'),('bumper','users','PRIMARY','2017-09-10 04:40:07','n_diff_pfx01',0,1,'id'),('bumper','users','PRIMARY','2017-09-10 04:40:07','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('bumper','users','PRIMARY','2017-09-10 04:40:07','size',1,NULL,'Number of pages in the index'),('cms','categories','PRIMARY','2017-08-02 00:12:13','n_diff_pfx01',6,1,'cat_id'),('cms','categories','PRIMARY','2017-08-02 00:12:13','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','categories','PRIMARY','2017-08-02 00:12:13','size',1,NULL,'Number of pages in the index'),('cms','comments','PRIMARY','2017-09-09 22:10:41','n_diff_pfx01',27,1,'comment_id'),('cms','comments','PRIMARY','2017-09-09 22:10:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','comments','PRIMARY','2017-09-09 22:10:41','size',1,NULL,'Number of pages in the index'),('cms','posts','PRIMARY','2017-08-18 19:47:13','n_diff_pfx01',12,1,'post_id'),('cms','posts','PRIMARY','2017-08-18 19:47:13','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','posts','PRIMARY','2017-08-18 19:47:13','size',1,NULL,'Number of pages in the index'),('cms','users','PRIMARY','2017-08-23 23:43:33','n_diff_pfx01',4,1,'user_id'),('cms','users','PRIMARY','2017-08-23 23:43:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','users','PRIMARY','2017-08-23 23:43:33','size',1,NULL,'Number of pages in the index'),('cms','users','user_email','2017-08-24 21:54:47','n_diff_pfx01',4,1,'user_email'),('cms','users','user_email','2017-08-24 21:54:47','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','users','user_email','2017-08-24 21:54:47','size',1,NULL,'Number of pages in the index'),('cms','users','user_name','2017-08-24 21:54:32','n_diff_pfx01',4,1,'user_name'),('cms','users','user_name','2017-08-24 21:54:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','users','user_name','2017-08-24 21:54:32','size',1,NULL,'Number of pages in the index'),('cms','users_online','PRIMARY','2017-08-16 15:30:30','n_diff_pfx01',5,1,'id'),('cms','users_online','PRIMARY','2017-08-16 15:30:30','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','users_online','PRIMARY','2017-08-16 15:30:30','size',1,NULL,'Number of pages in the index'),('ecom','categories','PRIMARY','2017-09-08 21:53:16','n_diff_pfx01',3,1,'cat_id'),('ecom','categories','PRIMARY','2017-09-08 21:53:16','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','categories','PRIMARY','2017-09-08 21:53:16','size',1,NULL,'Number of pages in the index'),('ecom','orders','PRIMARY','2017-09-06 23:48:14','n_diff_pfx01',4,1,'order_id'),('ecom','orders','PRIMARY','2017-09-06 23:48:14','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','orders','PRIMARY','2017-09-06 23:48:14','size',1,NULL,'Number of pages in the index'),('ecom','products','PRIMARY','2017-09-09 21:27:57','n_diff_pfx01',17,2,'product_id'),('ecom','products','PRIMARY','2017-09-09 21:27:57','n_leaf_pages',2,NULL,'Number of leaf pages in the index'),('ecom','products','PRIMARY','2017-09-09 21:27:57','size',3,NULL,'Number of pages in the index'),('ecom','reports','PRIMARY','2017-09-09 22:10:01','n_diff_pfx01',3,1,'report_id'),('ecom','reports','PRIMARY','2017-09-09 22:10:01','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','reports','PRIMARY','2017-09-09 22:10:01','size',1,NULL,'Number of pages in the index'),('ecom','slides','PRIMARY','2017-09-09 22:10:11','n_diff_pfx01',3,1,'slide_id'),('ecom','slides','PRIMARY','2017-09-09 22:10:11','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','slides','PRIMARY','2017-09-09 22:10:11','size',1,NULL,'Number of pages in the index'),('ecom','users','PRIMARY','2017-09-09 22:10:21','n_diff_pfx01',2,1,'user_id'),('ecom','users','PRIMARY','2017-09-09 22:10:21','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','users','PRIMARY','2017-09-09 22:10:21','size',1,NULL,'Number of pages in the index'),('loginapp','users','PRIMARY','2017-09-09 22:10:31','n_diff_pfx01',8,1,'id'),('loginapp','users','PRIMARY','2017-09-09 22:10:31','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('loginapp','users','PRIMARY','2017-09-09 22:10:31','size',1,NULL,'Number of pages in the index'),('mysql','gtid_executed','PRIMARY','2017-06-09 17:13:14','n_diff_pfx01',0,1,'source_uuid'),('mysql','gtid_executed','PRIMARY','2017-06-09 17:13:14','n_diff_pfx02',0,1,'source_uuid,interval_start'),('mysql','gtid_executed','PRIMARY','2017-06-09 17:13:14','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','gtid_executed','PRIMARY','2017-06-09 17:13:14','size',1,NULL,'Number of pages in the index'),('sys','sys_config','PRIMARY','2017-06-09 17:13:15','n_diff_pfx01',2,1,'variable'),('sys','sys_config','PRIMARY','2017-06-09 17:13:15','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('sys','sys_config','PRIMARY','2017-06-09 17:13:15','size',1,NULL,'Number of pages in the index');
+INSERT INTO `innodb_index_stats` VALUES ('bumper','comments','PRIMARY','2017-09-12 19:52:33','n_diff_pfx01',2,1,'id'),('bumper','comments','PRIMARY','2017-09-12 19:52:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('bumper','comments','PRIMARY','2017-09-12 19:52:33','size',1,NULL,'Number of pages in the index'),('bumper','likes','PRIMARY','2017-09-11 01:04:11','n_diff_pfx01',0,1,'id'),('bumper','likes','PRIMARY','2017-09-11 01:04:11','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('bumper','likes','PRIMARY','2017-09-11 01:04:11','size',1,NULL,'Number of pages in the index'),('bumper','posts','PRIMARY','2017-09-12 14:13:46','n_diff_pfx01',18,1,'id'),('bumper','posts','PRIMARY','2017-09-12 14:13:46','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('bumper','posts','PRIMARY','2017-09-12 14:13:46','size',1,NULL,'Number of pages in the index'),('bumper','users','PRIMARY','2017-09-10 04:40:07','n_diff_pfx01',0,1,'id'),('bumper','users','PRIMARY','2017-09-10 04:40:07','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('bumper','users','PRIMARY','2017-09-10 04:40:07','size',1,NULL,'Number of pages in the index'),('cms','categories','PRIMARY','2017-08-02 00:12:13','n_diff_pfx01',6,1,'cat_id'),('cms','categories','PRIMARY','2017-08-02 00:12:13','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','categories','PRIMARY','2017-08-02 00:12:13','size',1,NULL,'Number of pages in the index'),('cms','comments','PRIMARY','2017-09-09 22:10:41','n_diff_pfx01',27,1,'comment_id'),('cms','comments','PRIMARY','2017-09-09 22:10:41','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','comments','PRIMARY','2017-09-09 22:10:41','size',1,NULL,'Number of pages in the index'),('cms','posts','PRIMARY','2017-08-18 19:47:13','n_diff_pfx01',12,1,'post_id'),('cms','posts','PRIMARY','2017-08-18 19:47:13','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','posts','PRIMARY','2017-08-18 19:47:13','size',1,NULL,'Number of pages in the index'),('cms','users','PRIMARY','2017-08-23 23:43:33','n_diff_pfx01',4,1,'user_id'),('cms','users','PRIMARY','2017-08-23 23:43:33','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','users','PRIMARY','2017-08-23 23:43:33','size',1,NULL,'Number of pages in the index'),('cms','users','user_email','2017-08-24 21:54:47','n_diff_pfx01',4,1,'user_email'),('cms','users','user_email','2017-08-24 21:54:47','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','users','user_email','2017-08-24 21:54:47','size',1,NULL,'Number of pages in the index'),('cms','users','user_name','2017-08-24 21:54:32','n_diff_pfx01',4,1,'user_name'),('cms','users','user_name','2017-08-24 21:54:32','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','users','user_name','2017-08-24 21:54:32','size',1,NULL,'Number of pages in the index'),('cms','users_online','PRIMARY','2017-08-16 15:30:30','n_diff_pfx01',5,1,'id'),('cms','users_online','PRIMARY','2017-08-16 15:30:30','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('cms','users_online','PRIMARY','2017-08-16 15:30:30','size',1,NULL,'Number of pages in the index'),('ecom','categories','PRIMARY','2017-09-08 21:53:16','n_diff_pfx01',3,1,'cat_id'),('ecom','categories','PRIMARY','2017-09-08 21:53:16','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','categories','PRIMARY','2017-09-08 21:53:16','size',1,NULL,'Number of pages in the index'),('ecom','orders','PRIMARY','2017-09-06 23:48:14','n_diff_pfx01',4,1,'order_id'),('ecom','orders','PRIMARY','2017-09-06 23:48:14','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','orders','PRIMARY','2017-09-06 23:48:14','size',1,NULL,'Number of pages in the index'),('ecom','products','PRIMARY','2017-09-09 21:27:57','n_diff_pfx01',17,2,'product_id'),('ecom','products','PRIMARY','2017-09-09 21:27:57','n_leaf_pages',2,NULL,'Number of leaf pages in the index'),('ecom','products','PRIMARY','2017-09-09 21:27:57','size',3,NULL,'Number of pages in the index'),('ecom','reports','PRIMARY','2017-09-09 22:10:01','n_diff_pfx01',3,1,'report_id'),('ecom','reports','PRIMARY','2017-09-09 22:10:01','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','reports','PRIMARY','2017-09-09 22:10:01','size',1,NULL,'Number of pages in the index'),('ecom','slides','PRIMARY','2017-09-09 22:10:11','n_diff_pfx01',3,1,'slide_id'),('ecom','slides','PRIMARY','2017-09-09 22:10:11','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','slides','PRIMARY','2017-09-09 22:10:11','size',1,NULL,'Number of pages in the index'),('ecom','users','PRIMARY','2017-09-09 22:10:21','n_diff_pfx01',2,1,'user_id'),('ecom','users','PRIMARY','2017-09-09 22:10:21','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('ecom','users','PRIMARY','2017-09-09 22:10:21','size',1,NULL,'Number of pages in the index'),('loginapp','users','PRIMARY','2017-09-09 22:10:31','n_diff_pfx01',8,1,'id'),('loginapp','users','PRIMARY','2017-09-09 22:10:31','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('loginapp','users','PRIMARY','2017-09-09 22:10:31','size',1,NULL,'Number of pages in the index'),('mysql','gtid_executed','PRIMARY','2017-06-09 17:13:14','n_diff_pfx01',0,1,'source_uuid'),('mysql','gtid_executed','PRIMARY','2017-06-09 17:13:14','n_diff_pfx02',0,1,'source_uuid,interval_start'),('mysql','gtid_executed','PRIMARY','2017-06-09 17:13:14','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('mysql','gtid_executed','PRIMARY','2017-06-09 17:13:14','size',1,NULL,'Number of pages in the index'),('sys','sys_config','PRIMARY','2017-06-09 17:13:15','n_diff_pfx01',2,1,'variable'),('sys','sys_config','PRIMARY','2017-06-09 17:13:15','n_leaf_pages',1,NULL,'Number of leaf pages in the index'),('sys','sys_config','PRIMARY','2017-06-09 17:13:15','size',1,NULL,'Number of pages in the index');
 /*!40000 ALTER TABLE `innodb_index_stats` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -831,7 +832,7 @@ CREATE TABLE `innodb_table_stats` (
 
 LOCK TABLES `innodb_table_stats` WRITE;
 /*!40000 ALTER TABLE `innodb_table_stats` DISABLE KEYS */;
-INSERT INTO `innodb_table_stats` VALUES ('bumper','likes','2017-09-11 01:04:11',0,1,0),('bumper','post_comments','2017-09-11 01:02:51',0,1,0),('bumper','posts','2017-09-11 23:48:01',3,1,0),('bumper','users','2017-09-10 04:40:07',0,1,0),('cms','categories','2017-08-02 00:12:13',6,1,0),('cms','comments','2017-09-09 22:10:41',27,1,0),('cms','posts','2017-08-18 19:47:13',12,1,0),('cms','users','2017-08-24 21:54:47',4,1,0),('cms','users_online','2017-08-16 15:30:30',5,1,0),('ecom','categories','2017-09-08 21:53:16',3,1,0),('ecom','orders','2017-09-06 23:48:14',4,1,0),('ecom','products','2017-09-09 21:27:57',17,3,0),('ecom','reports','2017-09-09 22:10:01',3,1,0),('ecom','slides','2017-09-09 22:10:11',3,1,0),('ecom','users','2017-09-09 22:10:21',2,1,0),('loginapp','users','2017-09-09 22:10:31',8,1,0),('mysql','gtid_executed','2017-06-09 17:13:14',0,1,0),('sys','sys_config','2017-06-09 17:13:15',2,1,0);
+INSERT INTO `innodb_table_stats` VALUES ('bumper','comments','2017-09-12 19:52:33',2,1,0),('bumper','likes','2017-09-11 01:04:11',0,1,0),('bumper','posts','2017-09-12 14:13:46',18,1,0),('bumper','users','2017-09-10 04:40:07',0,1,0),('cms','categories','2017-08-02 00:12:13',6,1,0),('cms','comments','2017-09-09 22:10:41',27,1,0),('cms','posts','2017-08-18 19:47:13',12,1,0),('cms','users','2017-08-24 21:54:47',4,1,0),('cms','users_online','2017-08-16 15:30:30',5,1,0),('ecom','categories','2017-09-08 21:53:16',3,1,0),('ecom','orders','2017-09-06 23:48:14',4,1,0),('ecom','products','2017-09-09 21:27:57',17,3,0),('ecom','reports','2017-09-09 22:10:01',3,1,0),('ecom','slides','2017-09-09 22:10:11',3,1,0),('ecom','users','2017-09-09 22:10:21',2,1,0),('loginapp','users','2017-09-09 22:10:31',8,1,0),('mysql','gtid_executed','2017-06-09 17:13:14',0,1,0),('sys','sys_config','2017-06-09 17:13:15',2,1,0);
 /*!40000 ALTER TABLE `innodb_table_stats` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1403,4 +1404,4 @@ CREATE TABLE IF NOT EXISTS `slow_log` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-11 19:04:37
+-- Dump completed on 2017-09-12 13:23:43

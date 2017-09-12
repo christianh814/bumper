@@ -69,85 +69,107 @@ class Post {
 					continue;
 				}
 				//
-				if  ($num_itterations++ < $start) {
-					continue;
-				}
-				if ($count > $limit) {
-					break;
-				} else {
-					$count++;
-				}
-				//
-				
-				$user_details_query = mysqli_query($this->con, "SELECT first_name, last_name, profile_pic FROM users WHERE user_name = '{$added_by}' " );
-				$user_row = mysqli_fetch_array($user_details_query);
-				$first_name = $user_row['first_name'];
-				$last_name = $user_row['last_name'];
-				$profile_pic = $user_row['profile_pic'];
+				$user_logged_obj = new User($this->con, $user_logged_in);
+				if($user_logged_obj->isFriend($added_by)) {
+					//
+					if  ($num_itterations++ < $start) {
+						continue;
+					}
+					if ($count > $limit) {
+						break;
+					} else {
+						$count++;
+					}
+					//
+					
+					$user_details_query = mysqli_query($this->con, "SELECT first_name, last_name, profile_pic FROM users WHERE user_name = '{$added_by}' " );
+					$user_row = mysqli_fetch_array($user_details_query);
+					$first_name = $user_row['first_name'];
+					$last_name = $user_row['last_name'];
+					$profile_pic = $user_row['profile_pic'];
 	
-				$date_time_now = date("Y-m-d H:i:s");
-				$start_date = new DateTime($date_added);
-				$end_date = new DateTime($date_time_now);
-				$interval = $start_date->diff($end_date);
+					//HTML Block
+					?>
+					<script>
+						function toggle<?php echo $id ?>() {
+							var element  = document.getElementById("toggleComment<?php echo $id ?>");
+							if(element.style.display == "block")
+								element.style.display = "none";
+							else 
+								element.style.display = "block";
+							}
+					</script>
+
+
+					<?php
+					//Timeframe
+					$date_time_now = date("Y-m-d H:i:s");
+					$start_date = new DateTime($date_added);
+					$end_date = new DateTime($date_time_now);
+					$interval = $start_date->diff($end_date);
 	
-				if ($interval->y >= 1) {
-					if ($interval == 1) {
-						$time_message = $interval->y . " year ago";
+					if ($interval->y >= 1) {
+						if ($interval == 1) {
+							$time_message = $interval->y . " year ago";
+						} else {
+							$time_message = $interval->y . " years ago";
+						}
+					} elseif ($interval->m >= 1) {
+						if ($interval->d == 0) {
+							$days = " ago";
+						} elseif ($interval->d == 1){
+							$days = $interval->d . " day ago";
+						} else {
+							$days = $interval->d . " days ago";
+						}
+						if ($interval->m == 1) {
+								$time_message = $interval->m . " month " .  $days;
+						} else {
+								$time_message = $interval->m . " months " . $days;
+						}
+					} elseif ($interval->d >= 1) {
+						if ($interval->d == 1){
+							$time_message = "Yesterday";
+						} else {
+							$time_message = $interval->d . " days ago";
+						}
+					} elseif ($interval->h >= 1) {
+						if ($interval->h == 1){
+							$time_message = $interval->h . " hour ago";
+						} else {
+							$time_message = $interval->h . " hours ago";
+						}
+					} elseif ($interval->i >= 1) {
+						if ($interval->i == 1){
+							$time_message = $interval->i . " minute ago";
+						} else {
+							$time_message = $interval->i . " minutes ago";
+						}
 					} else {
-						$time_message = $interval->y . " years ago";
+						if ($interval->s < 30){
+							$time_message = "Just now";
+						} else {
+							$time_message = $interval->s . " seconds ago";
+						}
 					}
-				} elseif ($interval->m >= 1) {
-					if ($interval->d == 0) {
-						$days = " ago";
-					} elseif ($interval->d == 1){
-						$days = $interval->d . " day ago";
-					} else {
-						$days = $interval->d . " days ago";
-					}
-					if ($interval->m == 1) {
-							$time_message = $interval->m . " month " .  $days;
-					} else {
-							$time_message = $interval->m . " months " . $days;
-					}
-				} elseif ($interval->d >= 1) {
-					if ($interval->d == 1){
-						$time_message = "Yesterday";
-					} else {
-						$time_message = $interval->d . " days ago";
-					}
-				} elseif ($interval->h >= 1) {
-					if ($interval->h == 1){
-						$time_message = $interval->h . " hour ago";
-					} else {
-						$time_message = $interval->h . " hours ago";
-					}
-				} elseif ($interval->i >= 1) {
-					if ($interval->i == 1){
-						$time_message = $interval->i . " minute ago";
-					} else {
-						$time_message = $interval->i . " minutes ago";
-					}
-				} else {
-					if ($interval->s < 30){
-						$time_message = "Just now";
-					} else {
-						$time_message = $interval->s . " seconds ago";
-					}
-				}
-				//
-				$str .= "<div class='status_post'>
-						<div class='post_profile_pic'>
-							<img src='{$profile_pic}' width='50'></img>
+					//
+					$str .= "<div class='status_post' onClick='javascript:toggle{$id}()'>
+							<div class='post_profile_pic'>
+								<img src='{$profile_pic}' width='50'></img>
+							</div>
+							<div class='posted_by' style='color:#acacac;'>
+								<a href='profile.php?profile_username={$added_by}'>{$first_name}&nbsp;{$last_name}</a> {$user_to}&nbsp;&nbsp;&nbsp;&nbsp;{$time_message}
+							</div>
+							<div id='post_body'>{$body}<br>
+							</div>
 						</div>
-						<div class='posted_by' style='color:#acacac;'>
-							<a href='profile.php?profile_username={$added_by}'>{$first_name}&nbsp;{$last_name}</a> {$user_to}&nbsp;&nbsp;&nbsp;&nbsp;{$time_message}
+						<div class='post_comment' id='toggleComment{$id}' style='display:none;'>
+							<iframe src='comment_frame.php?post_id={$id}' id='comment_iframe' frameborder='0'></iframe>
 						</div>
-						<div id='post_body'>{$body}<br>
-						</div>
-					</div>
-					<hr>
-				
-				" ;
+						<hr>
+					
+					" ;
+				} //end if you are friends
 	
 			} //end while
 

@@ -29,6 +29,7 @@
 	</div>
 </div>
 	<script>
+		// Below controls what gets seen during scrolling
 		var user_logged_in = '<?php echo $user_logged_in ?>';
 		$(document).ready(function() {
 			$('#loading').show();

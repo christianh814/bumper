@@ -11,7 +11,7 @@
 	<div class="user_details_left_right">
 	<a href="profile.php?profile_username=<?php echo $user_logged_in ?>"><?php echo $user['first_name'] . " " . $user['last_name']; ?></a><br>
 		<?php echo "Posts: " . $user['num_posts']?><br>
-		<?php echo "Likes: " . $user['num_likes']?>
+		<?php echo "Bumps: " . $user['num_likes']?>
 	</div>
 </div>
 <div class="main_column column">

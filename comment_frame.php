@@ -5,6 +5,13 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
 	</head>
 	<body>
+		<style type="text/css">
+			* {
+				font-size: 12px;
+				font-family: Arial, Helvetica, Sans-serif;
+				/* background-color: #fff; */
+			}
+		</style>
 		<?php
 		require_once("config/config.php");
 		require_once("includes/classes/User.php");
@@ -133,6 +140,8 @@
 				<?php
 
 			}//end while
+		} else {
+			echo "<center><br><br>No Comments to Show!</center>";
 		}
 	?>
 </html>

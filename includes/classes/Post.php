@@ -91,17 +91,23 @@ class Post {
 					//HTML Block
 					?>
 					<script>
-						function toggle<?php echo $id ?>() {
-							var element  = document.getElementById("toggleComment<?php echo $id ?>");
-							if(element.style.display == "block")
-								element.style.display = "none";
-							else 
-								element.style.display = "block";
+						function toggle<?php echo $id ?>(event) {
+							var target = $(event.target);
+							if (!target.is('a')) {
+								var element  = document.getElementById("toggleComment<?php echo $id ?>");
+								if(element.style.display == "block")
+									element.style.display = "none";
+								else 
+									element.style.display = "block";
+								}
 							}
 					</script>
 
 
 					<?php
+					$comment_check_query = "SELECT * FROM comments WHERE post_id = '{$id}' ";
+					$comment_check = mysqli_query($this->con, $comment_check_query);
+					$comment_check_num = mysqli_num_rows($comment_check);
 					//Timeframe
 					$date_time_now = date("Y-m-d H:i:s");
 					$start_date = new DateTime($date_added);
@@ -153,7 +159,7 @@ class Post {
 						}
 					}
 					//
-					$str .= "<div class='status_post' onClick='javascript:toggle{$id}()'>
+					$str .= "<div class='status_post' onClick='javascript:toggle{$id}(event)'>
 							<div class='post_profile_pic'>
 								<img src='{$profile_pic}' width='50'></img>
 							</div>
@@ -161,6 +167,13 @@ class Post {
 								<a href='profile.php?profile_username={$added_by}'>{$first_name}&nbsp;{$last_name}</a> {$user_to}&nbsp;&nbsp;&nbsp;&nbsp;{$time_message}
 							</div>
 							<div id='post_body'>{$body}<br>
+							</div>
+							<br>
+							<br>
+							<br>
+							<div class='newsfeedPostOptions'>
+								Comments({$comment_check_num})&nbsp;&nbsp;&nbsp;
+								<iframe src='like.php?post_id={$id}' scrolling='no'></iframe>
 							</div>
 						</div>
 						<div class='post_comment' id='toggleComment{$id}' style='display:none;'>

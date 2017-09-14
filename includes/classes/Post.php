@@ -59,7 +59,7 @@ class Post {
 				if ($user_to == "none") {
 					$user_to = "";
 				} else {
-					$user_to_obj = new User($con, $user_to);
+					$user_to_obj = new User($this->con, $user_to);
 					$user_to_name = $user_to_obj->getFirstAndLastName();
 					$user_to = "to <a href='profile.php?profile_username={$row['user_to']}'>$user_to_name</a>";
 				}
@@ -79,6 +79,12 @@ class Post {
 						break;
 					} else {
 						$count++;
+					}
+					//
+					if ($user_logged_in == $added_by) {
+						$delete_button = "<button class='delete_button btn-danger' id='post{$id}'>x</button>";
+					} else {
+						$delete_button = "";
 					}
 					//
 					
@@ -165,6 +171,7 @@ class Post {
 							</div>
 							<div class='posted_by' style='color:#acacac;'>
 								<a href='profile.php?profile_username={$added_by}'>{$first_name}&nbsp;{$last_name}</a> {$user_to}&nbsp;&nbsp;&nbsp;&nbsp;{$time_message}
+								{$delete_button}
 							</div>
 							<div id='post_body'>{$body}<br>
 							</div>
@@ -184,6 +191,19 @@ class Post {
 					" ;
 				} //end if you are friends
 	
+				?>
+					<script>
+						$(document).ready(function() {
+							$('#post<?php echo $id?>').on('click', function(event) {
+								bootbox.confirm("Are you sure you want to delete this post?", function(result) {
+									$.post("includes/form_handlers/delete_post.php?post_id=<?php echo $id ?>", {result:result});
+									if(result)
+										location.reload();
+								});
+							});
+						});
+					</script>
+				<?php
 			} //end while
 
 			if ($count > $limit) {

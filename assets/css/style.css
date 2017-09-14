@@ -57,7 +57,7 @@ textarea:focus {
 	position: relative;
 	top: 9px;
 	text-shadow: #73b6e2 0.5px 0.5px 0px;
-	color: #1086ba
+	color: #1086ba;
 }
 .wrapper {
 	margin: 0 auto;
@@ -146,7 +146,82 @@ textarea:focus {
 	margin: 0 3px 3px 3px;
 	border-radius: 3px;
 }
-/*  */
+.newsfeedPostOptions {
+	padding: 0px;
+	text-decoration: none;
+	color: #3498db;
+	border: none;
+}
+.newsfeedPostOptions iframe {
+	border: 0px;
+	height: 17px;
+	width: 120px;
+}
+.comment_like {
+	background-color: transparent;
+	border: none;
+	font-size: 14px;
+	color: #3498db;
+	padding: 0;
+}
+.like_value {
+	display: inline;
+	font-size: 13px;
+}
+.profile_left {
+	top: -10px;
+	width: 17%;
+	max-width: 240px;
+	min-width: 130px;
+	height: 100%;
+	float: left;
+	position: relative;
+	background-color: #20aae5;
+	border-right: 10px solid #a7e4ff;
+	color: #e6eae8;
+	margin-right: 20px;
+}
+.profile_left img {
+	min-width: 80px;
+	width: 55%;
+	margin: 20px;
+	border: 5px solid #a7e4ff;
+	border-radius: 100px;
+}
+.profile_info {
+	display: list-item;
+	background-color: #2980b9;
+	width: 100%;
+	padding: 10px 0 10px 0;
+}
+.profile_info p {
+	margin: 0 0 0 20px;
+	word-wrap: break-word;
+}
+.danger {
+	background-color: #e74c3c;
+}
+.warning {
+	background-color: #f0ad4e;
+}
+.default {
+	background-color: #ddc3c7;
+}
+.success {
+	background-color: #2ecc71;
+}
+.deep_blue {
+	background-color: #0043f0;
+}
+.profile_left input[type="submit"] {
+	width: 90%;
+	height: 30px;
+	border-radius: 5px;
+	margin: 7px 0 0 7px;
+	border: none;
+	color: #fff;
+}
+/*IDs  */
 #comment_form textarea {
 	border-color: #d3d3d3;
 	width: 85%;
@@ -168,30 +243,26 @@ textarea:focus {
 	font-family: 'Bellota-BoldItalic', sans-serif;
 	text-shadow: #73b6e2 0.5px 0.5px 0px;
 }
-.newsfeedPostOptions {
-	padding: 0px;
-	text-decoration: none;
-	color: #3498db;
-	border: none;
-}
-.newsfeedPostOptions iframe {
-	border: 0px;
-	height: 17px;
-	width: 120px;
-}
-.comment_like {
-	background-color: transparent;
-	border: none;
-	font-size: 14px;
-	color: #3498db;
-	padding: 0;
-}
-.like_value {
-	display: inline;
-	font-size: 14px;
-}
 #comment_iframe {
 	max-height: 250px;
 	width: 100%;
 	margin-top: 5px;
+}
+#accept_button {
+	width: 20%;
+	height: 28px;
+	border-radius: 5px;
+	margin: 5px;
+	border: none;
+	color: #fff;
+	background-color: #2ecc71;
+}
+#ignore_button {
+	width: 20%;
+	height: 28px;
+	border-radius: 5px;
+	margin: 5px;
+	border: none;
+	color: #fff;
+	background-color: #e74c3c;
 }

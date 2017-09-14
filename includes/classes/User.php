@@ -54,5 +54,51 @@ class User {
 		return $row['profile_pic'];
 	}
 
+	public function getFriendArray() {
+		$username = $this->user['user_name'];
+		$query = mysqli_query($this->con, "SELECT friend_arrary FROM users WHERE user_name = '{$username}' ");
+		$row = mysqli_fetch_array($query);
+		return $row['friend_arrary'];
+	}
+
+	public function didRecvReq($user_from) {
+		$user_to = $this->user['user_name'];
+		$query = mysqli_query($this->con, "SELECT * FROM friend_req WHERE user_to = '{$user_to}' AND user_from = '{$user_from}' ");
+		if (mysqli_num_rows($query) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function didSndReq($user_to) {
+		$user_from = $this->user['user_name'];
+		$query = mysqli_query($this->con, "SELECT * FROM friend_req WHERE user_to = '{$user_to}' AND user_from = '{$user_from}' ");
+		if (mysqli_num_rows($query) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public function removeFriend($user_to_remove) {
+		$logged_in_user = $this->user['user_name'];
+		$query = mysqli_query($this->con, "SELECT friend_arrary FROM users WHERE user_name = '{$user_to_remove}' ");
+		$row = mysqli_fetch_array($query);
+		$friend_array_username = $row['friend_arrary'];
+		//
+		$new_friend_array = str_replace($user_to_remove . ",", "", $this->user['friend_arrary']);
+		$remove_friend = mysqli_query($this->con, "UPDATE users SET friend_arrary = '{$new_friend_array}' WHERE user_name = '{$logged_in_user}' ");
+
+		//
+		$new_friend_array = str_replace($this->user['user_name'] . ",", "", $friend_array_username);
+		$remove_friend = mysqli_query($this->con, "UPDATE users SET friend_arrary = '{$new_friend_array}' WHERE user_name = '{$user_to_remove}' ");
+	}
+
+	public function sendFriendReq($user_to) {
+		$user_from = $this->user['user_name'];
+		$query = mysqli_query($this->con, "INSERT INTO friend_req (user_to, user_from) VALUES ('{$user_to}', '{$user_from}') ");
+	}
+
 }
 ?>

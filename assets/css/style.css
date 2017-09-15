@@ -221,6 +221,15 @@ textarea:focus {
 	border: none;
 	color: #fff;
 }
+.profile_main_column {
+	min-width: 675px;
+	float: left;
+	width: 70%;
+	z-index: -1;
+}
+.profile_info_bottom {
+	margin: 10 0 0 7px;
+}
 /*IDs  */
 #comment_form textarea {
 	border-color: #d3d3d3;

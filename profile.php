@@ -60,10 +60,18 @@ if (isset($_POST['respond_request'])) {
 		?>
 	</form>
 		<input type="submit" class="deep_blue" data-toggle="modal" data-target="#post_form" value="Post Something"></input>
+		<?php
+			if ($user_logged_in !== $user_name) {
+				echo "<div class='profile_info_bottom'>";
+				echo $logged_in_user_obj->getMutualFriends($user_name) . " Mutual Friends";
+				echo "</div>";
+			}
+		?>
 </div>
 
-<div class="main_column column">
-	<?php echo $user_array['user_name']; ?>
+<div class="profile_main_column column">
+	<div class="post_area"></div>
+	<img id="loading" src="assets/images/icons/loading.gif"></img>
 </div>
 
 <!-- Modal -->
@@ -97,6 +105,50 @@ if (isset($_POST['respond_request'])) {
     </div>
   </div>
 </div>
-		<!--./ site Content -->
+	<script>
+		// Below controls what gets seen during scrolling
+		var user_logged_in = '<?php echo $user_logged_in ?>';
+		var profile_username = '<?php echo $user_name ?>';
+		$(document).ready(function() {
+			$('#loading').show();
+			$.ajax({
+				url: "includes/handlers/ajax_load_profile_posts.php",
+				type: "POST",
+				data: "page=1&user_logged_in=" + user_logged_in + "&profile_username=" + profile_username,
+				cache: false,
+
+				success: function(data) {
+					$('#loading').hide();
+					$('.post_area').html(data);
+				}
+			});
+			$(window).scroll(function () {
+				var height = $('.post_area').height();
+				var scroll_top = $(this).scrollTop();
+				var page = $('.post_area').find('.nextPage').val();
+				var noMorePosts = $('.post_area').find('.noMorePosts').val();
+
+				if ((document.body.scrollHeight == document.body.scrollTop + window.innerHeight) && noMorePosts == 'false') {
+					$('#loading').show();
+					var ajaxReq = $.ajax({
+						url: "includes/handlers/ajax_load_profile_posts.php",
+						type: "POST",
+						data: "page=" + page + "&user_logged_in=" + user_logged_in + "&profile_username=" + profile_username,
+						cache: false,
+
+						success: function(response) {
+							$('.post_area').find('.nextPage').remove();
+							$('.post_area').find('.noMorePosts').remove();
+							$('#loading').hide();
+							$('.post_area').append(response);
+						}
+					});
+					
+				} //end if
+				return false;
+			});
+		});
+	</script>
+<!-- end page-->
 </div> <!-- end div wrapper in header -->
 <?php require_once("includes/footer.php");?>

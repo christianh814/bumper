@@ -100,5 +100,25 @@ class User {
 		$query = mysqli_query($this->con, "INSERT INTO friend_req (user_to, user_from) VALUES ('{$user_to}', '{$user_from}') ");
 	}
 
+	public function getMutualFriends($user_to_check) {
+		$mutual_friends = 0;
+		$user_array = $this->user['friend_arrary'];
+		$user_array_explode = explode(",", $user_array);
+		//
+		$query = mysqli_query($this->con, "SELECT friend_arrary FROM users WHERE user_name = '{$user_to_check}' ");
+		$row = mysqli_fetch_array($query);
+		$user_to_check_array = $row['friend_arrary'];
+		$user_to_check_array_explode = explode(",", $user_to_check_array);
+		//
+		foreach($user_array_explode as $i) {
+			foreach ($user_to_check_array_explode as $j) {
+				if ($i == $j && $i !== "") {
+					$mutual_friends++;
+				}
+			}
+		}
+		return $mutual_friends;
+	}
+
 }
 ?>

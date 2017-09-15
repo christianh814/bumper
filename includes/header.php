@@ -21,6 +21,8 @@ if (isset($_SESSION['username'])) {
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="assets/js/bumper.js"></script> 
 	<script src="assets/js/bootbox.min.js"></script> 
+	<script src="assets/js/jquery.jcrop.js"></script> 
+	<script src="assets/js/jcrop_bits.js"></script> 
 
 	<!-- Sytlesheets -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
@@ -28,6 +30,7 @@ if (isset($_SESSION['username'])) {
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>
+	<link rel="stylesheet" type="text/css" href="assets/css/jquery.Jcrop.css"></link>
 
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"></link>
 	<link rel="icon" href="favicon.ico" type="image/x-icon"></link>

@@ -71,7 +71,7 @@ class Post {
 				}
 				//
 				if ($user_logged_in == $added_by) {
-					$delete_button = "<button class='delete_button btn-danger' id='post{$id}'>x</button>";
+					$delete_button = "<input type='button' class='close' color='red' data-toggle='modal' data-target='#delete_post' value='X'></input>";
 				} else {
 					$delete_button = "";
 				}
@@ -183,9 +183,33 @@ class Post {
 				" ;
 	
 				?>
+
+				<div class="modal fade" id="delete_post" tabindex="-1" role="dialog" aria-labelledby="delete_postModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="delete_postModalLabel">Delete Post?</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        Are you sure you want to delete this post?
+				      </div>
+				      <div class="modal-footer">
+				       	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<a href="includes/form_handlers/delete_post.php?post_id=<?php echo $id ?>">
+						<button type="button" class="btn btn-primary" >Delete</button>
+					</a>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
 				<script>
+					/*
 					$(document).ready(function() {
-						$("#post<?php echo $id?>").on("click", function(event) {
+						$("#post<?php echo $id?>").on("click", function() {
 							console.log("hello");
 							bootbox.confirm("Are you sure you want to delete this post?", function(result) {
 								$.post("includes/form_handlers/delete_post.php?post_id=<?php echo $id ?>", {result:result});
@@ -194,6 +218,7 @@ class Post {
 							});
 						});
 					});
+					*/
 				</script>
 				<?php
 			} //end while
@@ -258,7 +283,7 @@ class Post {
 					}
 					//
 					if ($user_logged_in == $added_by) {
-						$delete_button = "<button class='delete_button btn-danger' id='post{$id}'>x</button>";
+						$delete_button = "<input type='button' class='close' color='red' data-toggle='modal' data-target='#delete_post' value='X'></input>";
 					} else {
 						$delete_button = "";
 					}
@@ -371,9 +396,32 @@ class Post {
 				} //end if you are friends
 	
 				?>
+
+					<div class="modal fade" id="delete_post" tabindex="-1" role="dialog" aria-labelledby="delete_postModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="delete_postModalLabel">Delete Post?</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        Are you sure you want to delete this post?
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<a href="includes/form_handlers/delete_post.php?post_id=<?php echo $id ?>">
+							<button type="button" class="btn btn-primary" >Delete</button>
+						</a>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 					<script>
+						/*
 						$(document).ready(function() {
-							$("#post<?php echo $id?>").on("click", function(event) {
+							$("#post<?php echo $id?>").on("click", function() {
 								console.log("hello");
 								bootbox.confirm("Are you sure you want to delete this post?", function(result) {
 									$.post("includes/form_handlers/delete_post.php?post_id=<?php echo $id ?>", {result:result});
@@ -382,6 +430,7 @@ class Post {
 								});
 							});
 						});
+						*/
 					</script>
 				<?php
 			} //end while

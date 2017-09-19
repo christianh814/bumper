@@ -66,7 +66,7 @@ class Message {
 		$sql .= "ORDER BY id DESC LIMIT 1";
 		$query = mysqli_query($this->con, $sql);
 		$row = mysqli_fetch_array($query);
-		$sent_by = ($row['user_to'] == $user_logged_in) ? "They Said " : "You said ";
+		$sent_by = ($row['user_to'] == $user_logged_in) ? "<i>They Said:</i> " : "<i>You said:</i> ";
 		//Timeframe
 		$date_time_now = date("Y-m-d H:i:s");
 		$start_date = new DateTime($row['date']);
@@ -120,6 +120,7 @@ class Message {
 		array_push($details_array, $sent_by);
 		array_push($details_array, $row['body']);
 		array_push($details_array, $time_message);
+		return $details_array;
 	}
 
 	public function getConvos() {
@@ -144,7 +145,6 @@ class Message {
 			$dots = (strlen($latest_msg_details[1]) >= 12) ? "..." : "" ;
 			$split = str_split($latest_msg_details[1], 12);
 			$split = $split[0] . $dots;
-			var_dump($latest_msg_details);
 
 			$return_string .= "<a href='messages.php?u={$username}'>";
 			$return_string .= "<div class='user_found_messages'>";

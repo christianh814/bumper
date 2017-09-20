@@ -16,3 +16,9 @@ $(document).ready(function() {
 		});
 	});
 });
+
+function getUsers(value, user) {
+	$.post("includes/handlers/ajax_friend_search.php", {query:value, user_logged_in:user}, function(data) {
+		$(".results").html(data);
+	});
+}

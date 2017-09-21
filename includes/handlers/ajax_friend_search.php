@@ -38,7 +38,7 @@ if ($query !== "") {
 			echo "</div>";
 
 			echo "<div class='liveSearchText'>" . $row['first_name'] . " " . $row['last_name'];
-			echo "<p>{$row['user_name']}</p>";
+			echo "<p style='margin:0;'>{$row['user_name']}</p>";
 			echo "<p id='grey'>{$mutual_friends}</p>";
 			echo "</div>";
 

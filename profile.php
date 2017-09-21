@@ -1,6 +1,8 @@
 <?php
 require_once("includes/header.php");
 //
+$message_obj = new Message($con, $user_logged_in);
+//
 if (isset($_GET['profile_username'])) {
 	$user_name = $_GET['profile_username'];
 	$user_details = "SELECT * FROM users WHERE user_name = '{$user_name}' ";
@@ -21,6 +23,20 @@ if (isset($_POST['add_friend'])) {
 //
 if (isset($_POST['respond_request'])) {
 	header("Location: requests.php");
+}
+//
+if (isset($_POST['post_message'])) {
+	if (isset($_POST['message_body'])) {
+		$body = mysqli_real_escape_string($con, $_POST['message_body']);
+		$date = date("Y-m-d H:i:s");
+		$message_obj->sendMessage($user_name, $body, $date);
+	}
+	$link = '#profileTabs a[href="#messages_div"]';
+	echo "<script>
+		$(function() {
+			$('{$link}').tab('show');
+		});
+		</script>";
 }
 //
 ?>
@@ -70,8 +86,37 @@ if (isset($_POST['respond_request'])) {
 </div>
 
 <div class="profile_main_column column">
-	<div class="post_area"></div>
-	<img id="loading" src="assets/images/icons/loading.gif"></img>
+	<ul class="nav nav-tabs" role="tablist" id="profileTabs">
+  		<li role="presentation" class="active"><a href="#newsfeed_div" aria-controls="newsfeed_div" role="tab" data-togle="tab">Newsfeed</a></li>
+  		<li role="presentation"><a href="#messages_div" aria-controls="messages_div" role="tab" data-togle="tab">Messages</a></li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade in active" id="newsfeed_div">
+			<div class="post_area"></div>
+			<img id="loading" src="assets/images/icons/loading.gif"></img>
+		</div>
+
+		<div role="tabpanel" class="tab-pane fade" id="messages_div">
+			<?php
+				echo "<h4>You and <a href='profile.php?profile_username={$user_name}'>" . $profile_user_obj->getFirstAndLastName() . "</a></h4><hr><br>";
+			?>
+				<div class='loaded_messages' id='scroll_messages'>
+			<?php
+				echo $message_obj->getMessages($user_name);
+			?>
+				</div>
+			<div class="message_post">
+				<form action="" method="POST">
+					<textarea name='message_body' id='message_textarea' placeholder='Write your message...'></textarea>
+					<input type='submit' name='post_message' class='info' id='message_submit' value='send'></input>
+				</form>
+			</div>
+			<script>
+				var div = document.getElementById("scroll_messages");
+				div.scrollTop = div.scrollHeight;
+			</script>
+		</div>
+	</div>
 </div>
 
 <!-- Modal -->

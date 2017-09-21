@@ -87,8 +87,8 @@ if (isset($_POST['post_message'])) {
 
 <div class="profile_main_column column">
 	<ul class="nav nav-tabs" role="tablist" id="profileTabs">
-  		<li role="presentation" class="active"><a href="#newsfeed_div" aria-controls="newsfeed_div" role="tab" data-togle="tab">Newsfeed</a></li>
-  		<li role="presentation"><a href="#messages_div" aria-controls="messages_div" role="tab" data-togle="tab">Messages</a></li>
+  		<li role="presentation" class="active"><a href="#newsfeed_div" aria-controls="newsfeed_div" role="tab" data-toggle="tab">Newsfeed</a></li>
+  		<li role="presentation"><a href="#messages_div" aria-controls="messages_div" role="tab" data-toggle="tab">Messages</a></li>
 	</ul>
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane fade in active" id="newsfeed_div">

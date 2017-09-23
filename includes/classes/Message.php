@@ -155,5 +155,71 @@ class Message {
 		}
 		return $return_string;
 	}
+
+	public function getConvosDropdown($data, $limit) {
+		$page = $data['page'];
+		$user_logged_in = $this->user_obj->getUsername();
+		$return_string = "";
+		$convos = array();
+
+		if ($page == 1) {
+			$start = 0;
+		} else {
+			$start = ($page - 1) * $limit;
+		}
+
+		$set_viewed_query = mysqli_query($this->con, "UPDATE messages SET viewed = 'yes' WHERE user_to = '{$user_logged_in}' ");
+
+		$sql = "SELECT user_to, user_from FROM messages WHERE user_to = '{$user_logged_in}' OR user_from = '{$user_logged_in}' ORDER BY id DESC";
+		$query = mysqli_query($this->con, $sql);
+
+		while ($row = mysqli_fetch_array($query)) {
+			$user_to_push = ($row['user_to'] !== $user_logged_in) ? $row['user_to'] : $row['user_from'];
+			if (!in_array($user_to_push, $convos)) {
+				array_push($convos, $user_to_push);
+			}
+		}
+
+		$num_iterations = 0; //Num of msg checked
+		$count = 1; // Number of msg posted
+
+		foreach ($convos as $username) {
+			//
+			if ($num_iterations++ < $start) {
+				continue;
+			}
+			if ($count > $limit) {
+				break;
+			} else {
+				$count++;
+			}
+			//
+			$unread_q = "SELECT opend FROM messages WHERE user_to = '{$user_logged_in}' AND user_from = '{$username}' ORDER BY id DESC";
+			$is_uread_query = mysqli_query($this->con, $unread_q);
+			$row = mysqli_fetch_array($is_uread_query);
+			$style = ($row['opend'] == 'no') ? "background-color: #ddedff;" : "";
+			//
+			$user_found_obj = new User($this->con, $username);
+			$latest_msg_details = $this->getLatestMsg($user_logged_in, $username);
+
+			$dots = (strlen($latest_msg_details[1]) >= 12) ? "..." : "" ;
+			$split = str_split($latest_msg_details[1], 12);
+			$split = $split[0] . $dots;
+
+			$return_string .= "<a href='messages.php?u={$username}'>";
+			$return_string .= "<div class='user_found_messages' style='" . $style . "'>";
+			$return_string .= "<img src='" . $user_found_obj->getProfilePic() . "' style='border-radius:5px; margin-right:5px;'>" . "</img>"; 
+			$return_string .= $user_found_obj->getFirstAndLastName() . "<span class='timestamp_smaller' id='grey'>" . $latest_msg_details[2];
+			$return_string .= "</span>";
+			$return_string .= "<p id='grey' style='margin:0;'>" . $latest_msg_details[0] . $split . "</p></div></a>";
+		}
+		if ($count > $limit) {
+			$return_string .= "<input type='hidden' class='nextPageDropDownData' value='" . ($page + 1). "'>";
+			$return_string .= "<input type='hidden' class='noMoreDropdownData' value='false'>";
+		} else {
+			$return_string .= "<input type='hidden' class='noMoreDropdownData' value='true'><p style='text-align: center;'>No more messages</p>";
+		}
+		return $return_string;
+	}
 }
 ?>

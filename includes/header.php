@@ -64,7 +64,6 @@ if (isset($_SESSION['username'])) {
                 var bottomElement = $(".dropdown_data_window a").last();
                 var noMoreData = $('.dropdown_data_window').find('.noMoreDropdownData').val();
 
-                // isElementInViewport uses getBoundingClientRect(), which requires the HTML DOM object, not the jQuery object. The jQuery equivalent is using [0] as shown below.
                 if (isElementInView(bottomElement[0]) && noMoreData == 'false') {
                     loadPosts();
                 }
@@ -77,11 +76,13 @@ if (isset($_SESSION['username'])) {
 
                 dropdownInProgress = true;
 
-                var page = $('.dropdown_data_window').find('.nextPageDropdownData').val() || 1; //If .nextPage couldn't be found, it must not be on the page yet (it must be the first time loading posts), so use the value '1'
+                var page = $('.dropdown_data_window').find('.nextPageDropdownData').val() || 1; 
 
-                // var pageName = "ajax_load_messages.php"; //Holds name of page to send ajax request to
+                // var pageName = "ajax_load_messages.php"; 
                 var pageName; //Holds name of page to send ajax request to
                 var type = $('#dropdown_data_type').val();
+
+		//console.log("type: " + type);
 
                 if(type == 'notification')
                     pageName = "ajax_load_notifications.php";

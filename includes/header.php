@@ -88,12 +88,14 @@ if (isset($_SESSION['username'])) {
                     pageName = "ajax_load_notifications.php";
                 else if(type == 'message')
                     pageName = "ajax_load_messages.php";
+		else
+                    pageName = "ajax_load_messages.php";
 
                 $.ajax({
                     url: "includes/handlers/" + pageName,
                     type: "POST",
                     data: "page=" + page + "&user_logged_in=" + user_logged_in,
-                    cache:false,
+                    cache: false,
 
                     success: function(response) {
 

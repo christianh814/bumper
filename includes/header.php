@@ -42,9 +42,21 @@ if (isset($_SESSION['username'])) {
 			<a href="index.php">Bumper</a>
 		</div>
 		<nav>
+			<?php
+				//unread msg count
+				$messages = new Message($con, $user_logged_in);
+				$num_msg = $messages->getUnreadNumber();
+			?>
 			<a href="<?php echo "profile.php?profile_username=" .$user_logged_in ?>"><?php echo $user['first_name'] ?></a>
 			<a href="index.php"><i class="fa fa-home fa-lg"></i></a>
-			<a href="javascript:void(0);" onclick="getDropdownData('<?php echo $user_logged_in ?>', 'message')"><i class="fa fa-envelope fa-lg"></i></a>
+			<a href="javascript:void(0);" onclick="getDropdownData('<?php echo $user_logged_in ?>', 'message')">
+				<i class="fa fa-envelope fa-lg"></i>
+				<?php
+					if ($num_msg > 0) {
+						echo "<span class='notification_badge' id='unread_message'>{$num_msg}</span>";
+					}
+				?>
+			</a>
 			<a href="#"><i class="fa fa-bell-o fa-lg"></i></a>
 			<a href="requests.php"><i class="fa fa-users fa-lg"></i></a>
 			<a href="#"><i class="fa fa-cog fa-lg"></i></a>

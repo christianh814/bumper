@@ -123,6 +123,13 @@ class Message {
 		return $details_array;
 	}
 
+	public function getUnreadNumber() {
+		$user_logged_in = $this->user_obj->getUsername();
+		$sql = "SELECT * FROM messages WHERE viewed = 'no' AND user_to = '{$user_logged_in}' ";
+		$query = mysqli_query($this->con, $sql);
+		return mysqli_num_rows($query);
+	}
+
 	public function getConvos() {
 		$user_logged_in = $this->user_obj->getUsername();
 		$return_string = "";

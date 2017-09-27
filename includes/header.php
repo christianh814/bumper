@@ -90,17 +90,13 @@ if (isset($_SESSION['username'])) {
 
                 var page = $('.dropdown_data_window').find('.nextPageDropdownData').val() || 1; 
 
-                // var pageName = "ajax_load_messages.php"; 
                 var pageName; //Holds name of page to send ajax request to
                 var type = $('#dropdown_data_type').val();
 
-		//console.log("type: " + type);
 
                 if(type == 'notification')
                     pageName = "ajax_load_notifications.php";
                 else if(type == 'message')
-                    pageName = "ajax_load_messages.php";
-		else
                     pageName = "ajax_load_messages.php";
 
                 $.ajax({

@@ -3,6 +3,7 @@ require_once("config/config.php");
 require_once("includes/classes/User.php");
 require_once("includes/classes/Post.php");
 require_once("includes/classes/Message.php");
+require_once("includes/classes/Notification.php");
 //
 if (isset($_SESSION['username'])) {
 	$user_logged_in = $_SESSION['username'];
@@ -46,6 +47,10 @@ if (isset($_SESSION['username'])) {
 				//unread msg count
 				$messages = new Message($con, $user_logged_in);
 				$num_msg = $messages->getUnreadNumber();
+
+				//unread notification count
+				$notifications = new Notification($con, $user_logged_in);
+				$num_notifications = $notifications->getUnreadNumber();
 			?>
 			<a href="<?php echo "profile.php?profile_username=" .$user_logged_in ?>"><?php echo $user['first_name'] ?></a>
 			<a href="index.php"><i class="fa fa-home fa-lg"></i></a>
@@ -57,7 +62,14 @@ if (isset($_SESSION['username'])) {
 					}
 				?>
 			</a>
-			<a href="#"><i class="fa fa-bell-o fa-lg"></i></a>
+			<a href="javascript:void(0);" onclick="getDropdownData('<?php echo $user_logged_in ?>', 'notification')">
+				<i class="fa fa-bell-o fa-lg"></i>
+				<?php
+					if ($num_notifications > 0) {
+						echo "<span class='notification_badge' id='unread_notification'>{$num_notifications}</span>";
+					}
+				?>
+			</a>
 			<a href="requests.php"><i class="fa fa-users fa-lg"></i></a>
 			<a href="#"><i class="fa fa-cog fa-lg"></i></a>
 			<a href="includes/handlers/logout.php"><i class="fa fa-sign-out fa-lg"></i></a>
@@ -94,7 +106,7 @@ if (isset($_SESSION['username'])) {
                 var type = $('#dropdown_data_type').val();
 
 
-                if(type == 'notification')
+                if(type == 'notifcation')
                     pageName = "ajax_load_notifications.php";
                 else if(type == 'message')
                     pageName = "ajax_load_messages.php";

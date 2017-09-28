@@ -21,6 +21,7 @@
 		require_once("config/config.php");
 		require_once("includes/classes/User.php");
 		require_once("includes/classes/Post.php");
+		require_once("includes/classes/Notification.php");
 		//
 		if (isset($_SESSION['username'])) {
 			$user_logged_in = $_SESSION['username'];
@@ -59,6 +60,10 @@
 			$insert_user_query = "INSERT INTO likes (user_name, post_id) VALUES ('{$user_logged_in}', '{$post_id}') ";
 			$insert_user = mysqli_query($con, $insert_user_query);
 			// NOTIFY USER HERE//
+			if ($user_liked !== $user_logged_in) {
+				$notificaton = new Notification($con, $user_logged_in);
+				$notificaton->insertNotification($post_id, $user_liked, "like");
+			}
 		}
 
 		// Unlinke Button

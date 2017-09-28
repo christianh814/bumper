@@ -25,6 +25,10 @@ class Post {
 			$returned_id = mysqli_insert_id($this->con);
 			
 			// Insert Notifaction
+			if ($user_to !== "none") {
+				$notificaton = new Notification($this->con, $added_by);
+				$notification->insertNotification($returned_id, $user_to, "profile_post");
+			}
 
 			$num_posts = $this->user_obj->getNumPosts();
 			$num_posts++;

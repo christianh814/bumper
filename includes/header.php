@@ -96,7 +96,7 @@ if (isset($_SESSION['username'])) {
 					}
 				?>
 			</a>
-			<a href="#"><i class="fa fa-cog fa-lg"></i></a>
+			<a href="settings.php"><i class="fa fa-cog fa-lg"></i></a>
 			<a href="includes/handlers/logout.php"><i class="fa fa-sign-out fa-lg"></i></a>
 		</nav>
 

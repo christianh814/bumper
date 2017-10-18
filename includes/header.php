@@ -42,6 +42,20 @@ if (isset($_SESSION['username'])) {
 		<div class="logo">
 			<a href="index.php">Bumper</a>
 		</div>
+		<div class="search">
+			<form action="search.php" method="GET" name="search_form">
+				<input type="text" onkeyup="getLiveSearchUsers(this.value, '<?php echo  $user_logged_in; ?>')" name="q" placeholder="Search..." autocomplete="off" id="search_text_input">
+				<div class="button_holder">
+					<img src="https://openclipart.org/image/2400px/svg_to_png/226532/Magnifying-Glass-Icon.png" width="25" height="25">
+				</div>
+			</form>
+
+			<div class="search_results">
+			</div>
+
+			<div class="search_results_footer_empty">
+			</div>
+		</div>
 		<nav>
 			<?php
 				//unread msg count

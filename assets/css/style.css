@@ -74,6 +74,7 @@ textarea:focus {
 	border-radius: 5px;
 	box-shadow: 2px 2px 1px #d3d3d3;
 	z-index: -1;
+	color: #555;
 }
 .user_details {
 	width: 300px;
@@ -403,6 +404,17 @@ textarea:focus {
 	float: left;
 	margin-right: 10px;
 }
+.settings_submit {
+	border: none;
+	padding: 7px 12px;
+	border-radius: 5px;
+	color: #fff;
+}
+.small_profile_pic {
+	height: 55px;
+	margin: 1px 12px 0 2px;
+	float: left;
+}
 /*IDs  */
 #comment_form textarea {
 	border-color: #d3d3d3;
@@ -474,4 +486,14 @@ textarea:focus {
 }
 #search_hr {
 	margin-bottom: 0px;
+}
+#settings_input {
+	border: 1px solid #ccc;
+	height: 22px;
+	padding: 4px 6px;
+	margin-bottom: 10px;
+	border-radius: 4px;
+	font-size: 14px;
+	line-height: 20px;
+	width: 200px;
 }

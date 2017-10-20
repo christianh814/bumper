@@ -2,8 +2,48 @@
 		<!-- site Content -->
 <?php
 	if(isset($_POST['post'])) {
-		$post = new Post($con, $user_logged_in);
-		$post->submitPost($_POST['post_text'], 'none');
+		$upload_ok = 1;
+		$image_name = $_FILES['file_to_upload']['name'];
+		$error_msg = "";
+		if ($image_name != "") {
+			$target_dir = "assets/images/posts/";
+			$image_name = $target_dir . uniqid() . basename($image_name);;
+			$image_file_type = pathinfo($image_name, PATHINFO_EXTENSION);
+
+			if ($_FILES['file_to_upload']['size'] > 10000000) {
+				$error_msg = "Sorry, file is too large";
+				$upload_ok = 0;
+			}
+			if(
+				strtolower($image_file_type) != "jpeg" &&
+				strtolower($image_file_type) != "jpg" &&
+				strtolower($image_file_type) != "png" &&
+				strtolower($image_file_type) != "gif" &&
+				strtolower($image_file_type) != "svg" &&
+				strtolower($image_file_type) != "bmp"
+			) {
+				$error_msg = "Sorry, that file is not allowed";
+				$upload_ok = 0;
+			}
+
+			//
+			if ($upload_ok) {
+				if(move_uploaded_file($_FILES['file_to_upload']['tmp_name'], $image_name)) {
+					//image uploaded okay
+				} else {
+					//image NOT uploaded
+					$upload_ok = 0;
+				}
+			}
+		}
+		
+		if ($upload_ok) {
+			$post = new Post($con, $user_logged_in);
+			$post->submitPost($_POST['post_text'], 'none', $image_name);
+		} else {
+			echo "<div style='text-align:center' class='alert alert-danger'>{$error_msg}</div>";
+		}
+		//
 	}
 ?>
 <div class="user_details column">
@@ -15,7 +55,8 @@
 	</div>
 </div>
 <div class="main_column column">
-	<form class="post_form" action="index.php" method="post">
+	<form class="post_form" action="index.php" method="post" enctype="multipart/form-data">
+		<input type="file" name="file_to_upload" id="file_to_upload"></input>
 		<textarea name="post_text" id="post_text" placeholder="Got something to say?"></textarea>
 		<input type="submit" name="post" id="post_button" value="Post"></input>
 		<hr>
@@ -24,8 +65,25 @@
 		// $post = new Post($con, $user_logged_in);
 		// $post->loadPostsFriends();
 	?>
-	<div class="post_area">
+	<div class="post_area"> </div>
 	<img id="loading" src="assets/images/icons/loading.gif"></img>
+</div>
+<div class="user_details column">
+	<u><h4>Popular</h4></u>
+	<div class="trends">
+	<?php
+		$sql = "SELECT * FROM trends ORDER BY hits DESC LIMIT 9";
+		$query = mysqli_query($con, $sql);
+		//
+		foreach($query as $row) {
+			$word = $row['title'];
+			$word_dot = strlen($word) >= 14 ? "..." : "";
+			$trimmed_word = str_split($word, 14);
+			$trimmed_word = $trimmed_word[0];
+			//
+			echo "<div style='padding:1px;'>" . $trimmed_word . $word_dot . "<br></div>";
+		}
+	?>
 	</div>
 </div>
 	<script>

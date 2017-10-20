@@ -39,6 +39,12 @@ textarea:focus {
 	outline: 0;
 }
 /* classes */
+.posted_image img {
+	max-height: 300px;
+	max-width: 100%;
+	display: block;
+	margin: 5px auto;
+}
 .top_bar {
 	width: 100%;
 	min-width: 1050px;

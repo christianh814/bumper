@@ -18,6 +18,7 @@ require_once("includes/form_handlers/register_handler.php");
 					$(document).ready(function() {
 						$("#first").hide();
 						$("#second").show();
+						$("#third").hide();
 					});
 				</script>
 			';
@@ -37,7 +38,8 @@ require_once("includes/form_handlers/register_handler.php");
 						<br>
 						<input type="submit" name="login_button" value="Login">
 						<br>
-						<a href="#" id="signup" class="signup">Need an account?	Register here!</a>
+						<a href="#" id="signup" class="signup">Need an account?	Register here!</a><br>
+						<a href="reset.php" id="reset" class="signup">Forgot Password?</a>
 					</form>
 				</div>
 				<div id="second">

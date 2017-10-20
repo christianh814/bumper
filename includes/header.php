@@ -4,6 +4,7 @@ require_once("includes/classes/User.php");
 require_once("includes/classes/Post.php");
 require_once("includes/classes/Message.php");
 require_once("includes/classes/Notification.php");
+require_once("sendgrid-php/sendgrid-php.php");
 //
 if (isset($_SESSION['username'])) {
 	$user_logged_in = $_SESSION['username'];

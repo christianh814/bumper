@@ -13,6 +13,25 @@ class User {
 		return $this->user['user_name'];
 	}
 
+	public function sendEmail($from, $from_fullname, $subject, $to, $to_fullname, $body) {
+		$from = new SendGrid\Email($from_fullname, $from);    
+		$subject = $subject;
+		$to = new SendGrid\Email($to_fullname, $to);    
+		$content = new SendGrid\Content("text/plain", $body);    
+		
+		$mail = new SendGrid\Mail($from, $subject, $to, $content);    
+		
+		$apiKey = getenv('SENDGRID_API_KEY');    
+		$sg = new \SendGrid($apiKey);    
+		
+		$response = $sg->client->mail()->send()->post($mail);    
+		if ($response->statusCode() == 202) {    
+			return true;
+		} else {    
+			return false; 
+		} 
+	}
+
 	public function getNumPosts() {
 		$username = $this->user['user_name'];
 		$query = mysqli_query($this->con, "SELECT num_posts FROM users WHERE user_name = '{$username}'");

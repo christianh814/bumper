@@ -46,7 +46,7 @@
 		//
 	}
 ?>
-<div class="user_details column">
+<div class="user_details column" style="width:265px;">
 	<a href="profile.php?profile_username=<?php echo $user_logged_in ?>"><img src="<?php echo $user['profile_pic']; ?>"></img></a>
 	<div class="user_details_left_right">
 	<a href="profile.php?profile_username=<?php echo $user_logged_in ?>"><?php echo $user['first_name'] . " " . $user['last_name']; ?></a><br>
@@ -68,7 +68,7 @@
 	<div class="post_area"> </div>
 	<img id="loading" src="assets/images/icons/loading.gif"></img>
 </div>
-<div class="user_details column">
+<div class="user_details column" style="width:265px;">
 	<u><h4>Popular</h4></u>
 	<div class="trends">
 	<?php

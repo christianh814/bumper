@@ -38,6 +38,24 @@ if (isset($_POST['reset_email_button'])) {
 	}
 }
 //
+if (isset($_POST['reset_password_button'])) {
+	$email = mysqli_real_escape_string($con, $_POST['reset_this_email']);
+	$pw1 = mysqli_real_escape_string($con, $_POST['reset_password_1']);
+	$pw2 = mysqli_real_escape_string($con, $_POST['reset_password_2']);
+	if ($pw1 != $pw2) {
+		array_push($error_arry, "Passwords do not match!<br>");
+	} else {
+		$password = password_hash($pw1, PASSWORD_BCRYPT, array('cost' => 12));
+		$sql = "UPDATE users SET password = '{$password}', reset_token = '' ";
+		$password_reset_query = mysqli_query($con, $sql);
+		if ($password_reset_query) {
+			$_SESSION['pw_reset_msg'] = "Password sucessfully changed";
+			header("Location: register.php");
+		} else {
+			array_push($error_arry, "Error updating password, please try again!<br>");
+		}
+	}
+}
 //
 if (isset($_POST['register_button'])) {
 	$fname = strip_tags($_POST['reg_fname']);

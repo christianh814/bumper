@@ -30,6 +30,12 @@ require_once("includes/form_handlers/register_handler.php");
 					<h1>Bumper</h1>
 					Login or Signup below
 				</div>
+					<?php
+						if(isset($_SESSION['pw_reset_msg'])) {
+							echo "<h4><center>" . $_SESSION['pw_reset_msg'] . "</center></h4>";
+							$_SESSION['pw_reset_msg'] = null;
+						}
+					?>
 				<div id="first">
 					<form action="register.php" method="post">
 						<input type="email" name="log_email" placeholder="Email Address">

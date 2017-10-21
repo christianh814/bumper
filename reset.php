@@ -21,7 +21,33 @@ require_once("includes/form_handlers/reset_handler.php");
 
 				<?php
 					if(isset($_GET['reset_token']) && isset($_GET['email'])) {
-						echo "token";
+						$reset_token = mysqli_real_escape_string($con, $_GET['reset_token']);
+						$email_reset = mysqli_real_escape_string($con, $_GET['email']);
+
+						$sql = "SELECT * FROM users WHERE email = '{$email_reset}' AND reset_token = '{$reset_token}' ";
+						$reset_query = mysqli_query($con, $sql);
+
+						if(mysqli_num_rows($reset_query) != 0) {
+							?>
+							<center><h4>Updating Password for <br><?php echo $email_reset ?></h4></center>
+							<div id="fourth">
+								<form action="reset.php" method="post">
+									<input type="hidden" name="reset_this_email" value="<?php echo $email_reset; ?>">
+									<br>
+									<input type="password" name="reset_password_1" placeholder="Password" required>
+									<br>
+									<input type="password" name="reset_password_2" placeholder="Confirm Password" required>
+									<br>
+									<input type="submit" name="reset_password_button" value="Reset Password">
+									<br>
+									<a href="register.php" id="signin" class="signin">Have an account? Signin here!</a>
+								</form>
+							</div>
+							<?php
+						} else {
+							echo "<center><h4>Invalid request</h4></center>";
+						}
+						//
 					} else {
 					?>
 						<div id="third">

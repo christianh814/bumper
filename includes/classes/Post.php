@@ -570,6 +570,7 @@ class Post {
 			$user_closed	= $row['user_closed'];
 			$deleted	= $row['deleted'];
 			$likes		= $row['likes'];
+			$image_path	= $row['image'];
 			//
 			if ($user_to == "none") {
 				$user_to = "";
@@ -671,6 +672,14 @@ class Post {
 						}
 					}
 					//
+					if($image_path != "") {
+						$image_div = "<div class='posted_image'>
+								<img src='" . $image_path . "'>
+								</div>";
+					} else {
+						$image_div = "";
+					}
+					//
 					$str .= "<div class='status_post' onClick='javascript:toggle{$id}(event)'>
 							<div class='post_profile_pic'>
 								<img src='{$profile_pic}' width='50'></img>
@@ -683,6 +692,7 @@ class Post {
 								{$delete_button}
 							</div>
 							<div id='post_body'>{$body}<br>
+								{$image_div}
 							</div>
 							<br>
 							<br>

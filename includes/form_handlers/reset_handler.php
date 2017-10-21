@@ -39,6 +39,8 @@ if (isset($_POST['reset_password_button'])) {
 	$pw2 = mysqli_real_escape_string($con, $_POST['reset_password_2']);
 	if ($pw1 != $pw2) {
 		array_push($error_arry, "Passwords do not match!<br>");
+	} else if (strlen($pw1) < 6) {
+		array_push($error_arry, "Password must be at least 6 characters!<br>");
 	} else {
 		$password = password_hash($pw1, PASSWORD_BCRYPT, array('cost' => 12));
 		$sql = "UPDATE users SET password = '{$password}', reset_token = '' ";
